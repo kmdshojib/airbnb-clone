@@ -1,3 +1,4 @@
+import TosterProvider from './Providers/TosterProvider'
 import RegisterModal from './components/Modals/RegisterModal'
 import NavBar from './components/NavBar/NavBar'
 import './globals.css'
@@ -19,6 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={font.className}>
         <>
+          <TosterProvider />
           <RegisterModal />
           <NavBar />
         </>
