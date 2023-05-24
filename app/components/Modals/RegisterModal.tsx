@@ -54,7 +54,9 @@ const RegisterModal = () => {
             />
             <div className="justify-center flex flex-row text-netural-500 text-center mt-4 font-white">
                 <div>Already have an account?</div>
-                <div className="text-neutral-500 cursor-pointer ml-1 hover:underline">Login</div>
+                <div 
+                onClick={()=>{}}
+                className="text-neutral-500 cursor-pointer ml-1 hover:underline">Login</div>
             </div>
         </div>
     )
