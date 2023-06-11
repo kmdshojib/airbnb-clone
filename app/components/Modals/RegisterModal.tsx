@@ -11,6 +11,7 @@ import Heading from "../Heading";
 import Input from "../inputs/Input";
 import { toast } from 'react-hot-toast';
 import Button from "../Button";
+import { signIn } from "next-auth/react";
 
 
 
@@ -40,23 +41,23 @@ const RegisterModal = () => {
     const footerContent = (
         <div className="flex flex-col gap-4 mt-3">
             <hr />
-            <Button 
+            <Button
                 outline
                 label="Continue with google"
                 icon={FcGoogle}
-                onClick={()=>{}}
+                onClick={() => signIn("google")}
             />
-            <Button 
+            <Button
                 outline
                 label="Continue with GitHub"
                 icon={AiFillGithub}
-                onClick={()=>{}}
+                onClick={() => signIn("github")}
             />
             <div className="justify-center flex flex-row text-netural-500 text-center mt-4 font-white">
                 <div>Already have an account?</div>
-                <div 
-                onClick={()=>{}}
-                className="text-neutral-500 cursor-pointer ml-1 hover:underline">Login</div>
+                <div
+                    onClick={() => { }}
+                    className="text-neutral-500 cursor-pointer ml-1 hover:underline">Login</div>
             </div>
         </div>
     )
@@ -66,13 +67,13 @@ const RegisterModal = () => {
                 title="Welcome to Airbnb"
                 subTitle="Create a new Account"
             />
-                <Input
-                    id="name"
-                    label="Name"
-                    disabled={isLoading}
-                    register={register}
-                    errors={errors}
-                    required />
+            <Input
+                id="name"
+                label="Name"
+                disabled={isLoading}
+                register={register}
+                errors={errors}
+                required />
             <Input
                 id="email"
                 label="Email"
