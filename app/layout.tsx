@@ -2,6 +2,7 @@ import TosterProvider from './Providers/TosterProvider'
 import getCurrentUser from './actions/getCurrentUser'
 import LoginModal from './components/Modals/LoginModal'
 import RegisterModal from './components/Modals/RegisterModal'
+import RentModal from './components/Modals/RentModal'
 import NavBar from './components/NavBar/NavBar'
 import './globals.css'
 import { Nunito } from 'next/font/google'
@@ -24,6 +25,7 @@ const RootLayout = async ({
       <body className={font.className}>
         <>
           <TosterProvider />
+          <RentModal />
           <LoginModal />
           <RegisterModal />
           <NavBar currentUser={currentUser} />

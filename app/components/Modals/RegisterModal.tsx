@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import useRegisterModal from "@/app/hooks/useRegisteModal";
 import axios from "axios";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
@@ -12,11 +12,13 @@ import Input from "../inputs/Input";
 import { toast } from 'react-hot-toast';
 import Button from "../Button";
 import { signIn } from "next-auth/react";
+import useLoginModal from '@/app/hooks/useLogInModal';
 
 
 
 const RegisterModal = () => {
     const registerModal = useRegisterModal();
+    const loginModal = useLoginModal();
     const [isLoading, setLoading] = useState(false);
 
     const { register, handleSubmit, formState: { errors } } = useForm<FieldValues>({
@@ -38,6 +40,11 @@ const RegisterModal = () => {
                 setLoading(false)
             })
     }
+    const toggle = useCallback(() => {
+        registerModal.onClose();
+        loginModal.onOpen();
+    }, [registerModal, loginModal])
+
     const footerContent = (
         <div className="flex flex-col gap-4 mt-3">
             <hr />
@@ -56,11 +63,12 @@ const RegisterModal = () => {
             <div className="justify-center flex flex-row text-netural-500 text-center mt-4 font-white">
                 <div>Already have an account?</div>
                 <div
-                    onClick={() => { }}
+                    onClick={toggle}
                     className="text-neutral-500 cursor-pointer ml-1 hover:underline">Login</div>
             </div>
         </div>
     )
+    
     const bodyContent = (
         <div className="flex flex-col gap-4">
             <Heading

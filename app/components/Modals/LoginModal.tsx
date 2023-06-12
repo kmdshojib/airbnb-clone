@@ -1,7 +1,7 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import useRegisterModal from "@/app/hooks/useRegisteModal";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
 import { AiFillGithub } from "react-icons/ai";
@@ -46,29 +46,11 @@ const LoginModal = () => {
             }
         })
     }
-    const footerContent = (
-        <div className="flex flex-col gap-4 mt-3">
-            <hr />
-            <Button
-                outline
-                label="Continue with google"
-                icon={FcGoogle}
-                onClick={() => signIn("google")}
-            />
-            <Button
-                outline
-                label="Continue with GitHub"
-                icon={AiFillGithub}
-                onClick={() => signIn("github")}
-            />
-            <div className="justify-center flex flex-row text-netural-500 text-center mt-4 font-white">
-                <div>Already have an account?</div>
-                <div
-                    onClick={() => { }}
-                    className="text-neutral-500 cursor-pointer ml-1 hover:underline">Login</div>
-            </div>
-        </div>
-    )
+    const toggle = useCallback(() => {
+        loginModal.onClose();
+        registerModal.onOpen();
+    }, [registerModal, loginModal])
+
     const bodyContent = (
         <div className="flex flex-col gap-4">
             <Heading
@@ -93,6 +75,31 @@ const LoginModal = () => {
                 required />
         </div>
     )
+    const footerContent = (
+        <div className="flex flex-col gap-4 mt-3">
+            <hr />
+            <Button
+                outline
+                label="Continue with google"
+                icon={FcGoogle}
+                onClick={() => signIn("google")}
+            />
+            <Button
+                outline
+                label="Continue with GitHub"
+                icon={AiFillGithub}
+                onClick={() => signIn("github")}
+            />
+            <div className="justify-center flex flex-row text-netural-500 text-center mt-4 font-white">
+                <div>First time using AirBnB?</div>
+                <div
+                    onClick={toggle}
+                    className="text-neutral-500 cursor-pointer ml-1 hover:underline">Create An Account</div>
+            </div>
+        </div>
+    )
+
+
     return (
         <Modal
             disabled={isLoading}

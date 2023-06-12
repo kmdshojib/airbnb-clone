@@ -1,4 +1,5 @@
 'use client';
+
 import Container from "../Container"
 import { FaSkiing } from "react-icons/fa"
 import { TbBeach,TbMountain,TbPool } from "react-icons/tb"
