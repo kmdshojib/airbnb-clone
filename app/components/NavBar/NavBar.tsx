@@ -4,6 +4,7 @@ import Logo from "./Logo"
 import Search from "./Search"
 import UserMenu from "./UserMenu"
 import { safeUser } from "@/app/types"
+import Categories from "./Categories"
 
 
 interface NavBarProps {
@@ -25,6 +26,7 @@ const NavBar: React.FC<NavBarProps> = ({
                     </div>
                 </Container>
             </div>
+            <Categories />
         </div>
     )
 }
