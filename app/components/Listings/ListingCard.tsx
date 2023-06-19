@@ -8,6 +8,8 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
 import HeartButton from "../HeartBution";
+import Button from "../Button";
+
 
 interface ListingCardProps {
     currentUser?: safeUser | null;
@@ -16,6 +18,7 @@ interface ListingCardProps {
     onAction: (id: string) => void;
     disabled?: boolean;
     actionId?: string;
+    actionLabel?: string;
 
 }
 const ListingCard: React.FC<ListingCardProps> = ({
@@ -24,6 +27,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
     reservation,
     onAction,
     disabled,
+    actionLabel,
     actionId = ""
 
 }) => {
@@ -64,11 +68,11 @@ const ListingCard: React.FC<ListingCardProps> = ({
         >
             <div className="flex flex-col gap-2 w-full">
                 <div className="aspect-square w-full relative overflow-hidden rounded-xl">
-                    <Image 
-                    fill
-                    src={data.imageSrc} 
-                    alt="Listing"
-                    className="object-cover h-full w-full group-hover:scale-110 transition"
+                    <Image
+                        fill
+                        src={data.imageSrc}
+                        alt="Listing"
+                        className="object-cover h-full w-full group-hover:scale-110 transition"
                     />
                     <div className="absolute top-3 right-3">
                         <HeartButton
@@ -77,6 +81,29 @@ const ListingCard: React.FC<ListingCardProps> = ({
                         />
                     </div>
                 </div>
+                <div className="font-semibold text-lg">
+                    {location?.region},{location?.lable}
+                </div>
+
+                <div className="font-light text-neutral-500">
+                    {reservationDate || data.category}
+                </div>
+
+                <div className="flex flex-row items-center gap-1">
+                    <div className="font-semibold">$ {price}</div>
+                {!reservation && (
+                    <div className="font-light">
+                        night
+                    </div>
+                )}
+                </div>
+                {onAction && actionLabel && (
+                    <Button
+                        onClick={handleCancle}
+                        disabled={disabled}
+                        small
+                        label={actionLabel} />
+                )}
             </div>
         </div>
     );
