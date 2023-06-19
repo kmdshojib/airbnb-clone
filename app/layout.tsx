@@ -30,7 +30,9 @@ const RootLayout = async ({
           <RegisterModal />
           <NavBar currentUser={currentUser} />
         </>
+        <div className="pb-20 pt-28">
         {children}
+        </div>
       </body>
     </html>
   )
