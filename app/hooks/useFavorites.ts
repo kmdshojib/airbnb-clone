@@ -9,45 +9,46 @@ interface IUseFavourite {
     listingId: string;
     currentUser?: safeUser | null;
 }
-const useFavourites = ({
-    listingId, currentUser
-}: IUseFavourite) => {
+const useFavourites = ({ listingId, currentUser }: IUseFavourite) => {
+
     const router = useRouter();
     const loginModal = useLoginModal();
 
-    const hasFvourited = useMemo(() => {
+    const hasFavorited = useMemo(() => {
         const list = currentUser?.favoriteIds || [];
 
         return list.includes(listingId);
-    }, [currentUser, listingId])
+    }, [currentUser, listingId]);
 
-    const toggleFvourite = useCallback(async (
+    const toggleFavorite = useCallback(async (
         e: React.MouseEvent<HTMLDivElement>
     ) => {
-        e.preventDefault();
+        e.stopPropagation();
+        console.log({ currentUser })
         if (!currentUser) {
             return loginModal.onOpen();
         }
 
         try {
             let request;
-            if (hasFvourited) {
-                request = () => axios.delete(`/api/favorites/${listingId}`)
+            if (hasFavorited) {
+                request = () => axios.delete(`/api/favourites/${listingId}`)
             } else {
-                request = () => axios.post(`/api/favorites/${listingId}`)
+                request = () => axios.post(`/api/favourites/${listingId}`)
             }
 
             await request();
             router.refresh();
             toast.success("Success")
         } catch (error) {
-            toast.error("Something went wrong!")
+            toast.error("Something went wrong!");
+            console.log(error)
         }
-    }, [currentUser, listingId, router, hasFvourited, loginModal,])
+    }, [currentUser, listingId, router, hasFavorited, loginModal,])
 
     return {
-        hasFvourited,
-        toggleFvourite
+        hasFavorited,
+        toggleFavorite
     }
 }
 
