@@ -1,13 +1,13 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
-import { safeUser } from "../types";
+import { SafeUser } from "../types";
 import useLoginModal from "./useLogInModal";
 import { toast } from "react-hot-toast";
 
 interface IUseFavourite {
     listingId: string;
-    currentUser?: safeUser | null;
+    currentUser?: SafeUser | null;
 }
 const useFavourites = ({ listingId, currentUser }: IUseFavourite) => {
 
@@ -24,7 +24,6 @@ const useFavourites = ({ listingId, currentUser }: IUseFavourite) => {
         e: React.MouseEvent<HTMLDivElement>
     ) => {
         e.stopPropagation();
-        console.log({ currentUser })
         if (!currentUser) {
             return loginModal.onOpen();
         }
