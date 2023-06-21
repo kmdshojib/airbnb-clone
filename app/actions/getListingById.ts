@@ -27,7 +27,7 @@ const getListingById = async (
             createdAt: listing.createdAt.toISOString(),
             user: {
                 ...listing.user,
-                ceatedAt: listing.user.ceatedAt.toISOString(),
+                createdAt: listing.user.createdAt.toISOString(),
                 updatedAt: listing.user.updatedAt.toISOString(),
                 emailVerified: listing.user.emailVerified?.toISOString() || null,
             }

@@ -25,7 +25,7 @@ const getCurrentUser = async () => {
 
         return {
             ...currentUser,
-            createdAt: currentUser.ceatedAt.toISOString(),
+            createdAt: currentUser.createdAt.toISOString(),
             updatedAt: currentUser.updatedAt.toISOString(),
             emailVerified: currentUser.emailVerified?.toISOString() || null,
 
