@@ -8,9 +8,10 @@ import ListingHead from './../../components/Listings/ListingHead';
 import ListingInfo from '@/app/components/Listings/ListingInfo';
 import useLoginModal from '@/app/hooks/useLogInModal';
 import { useRouter } from 'next/navigation';
-import { differenceInDays, eachDayOfInterval } from 'date-fns';
+import { differenceInCalendarDays, eachDayOfInterval } from 'date-fns';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import ListingReservation from '@/app/components/Listings/ListingReservation';
 
 
 const initialDateRange = {
@@ -47,7 +48,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
         return dates
     }, [reservations])
 
-    const [isLoadind, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [totalPrice, setTotalPrice] = useState(listing.price);
     const [dateRange, setDateRange] = useState(initialDateRange);
 
@@ -78,7 +79,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
 
     useEffect(() => {
         if (dateRange.startDate && dateRange.endDate) {
-            const dayCount = differenceInDays(dateRange.endDate, dateRange.startDate);
+            const dayCount = differenceInCalendarDays(dateRange.endDate, dateRange.startDate);
 
             if (dayCount && listing.price) {
                 setTotalPrice(dayCount * listing.price)
@@ -117,6 +118,17 @@ const ListingClient: React.FC<ListingClientProps> = ({
                             locationValue={loactionValue}
 
                         />
+                        <div className='order-first mb-10 md:order-last md:col-span-3 '>
+                            <ListingReservation
+                                price={listing.price}
+                                totalPrice={totalPrice}
+                                onChangeDate={(value) => setDateRange(value)}
+                                dateRange={dateRange}
+                                onSubmit={onCreateReservation}
+                                disabled={isLoading}
+                                disabledDates={disableDates}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
