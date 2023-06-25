@@ -2,8 +2,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import Container from '@/app/components/Container';
 import { categories } from '@/app/components/NavBar/Categories';
-import { SafeListing, SafeUser } from '@/app/types';
-import { Reservation } from '@prisma/client';
+import { SafeListing, SafeReservation, SafeUser } from '@/app/types';
 import ListingHead from './../../components/Listings/ListingHead';
 import ListingInfo from '@/app/components/Listings/ListingInfo';
 import useLoginModal from '@/app/hooks/useLogInModal';
@@ -22,7 +21,7 @@ const initialDateRange = {
 }
 
 interface ListingClientProps {
-    reservations?: Reservation[];
+    reservations?: SafeReservation[];
     listing: SafeListing & {
         user: SafeUser
     };
@@ -36,8 +35,10 @@ const ListingClient: React.FC<ListingClientProps> = ({
 
     const loginModal = useLoginModal();
     const router = useRouter();
+    
     const disableDates = useMemo(() => {
         let dates: Date[] = [];
+
         reservations.forEach((reservation) => {
             const range = eachDayOfInterval({
                 start: new Date(reservation.startDate),

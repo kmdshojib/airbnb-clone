@@ -70,7 +70,7 @@ model Reservation {
   startDate   DateTime
   endDate     DateTime
   totalPrice  Int
-  createdDate DateTime @default(now())
+  createdAt DateTime @default(now())
 
   user    User    @relation(fields: [userId], references: [id])
   listing Listing @relation(fields: [listingId], references: [id])
