@@ -25,7 +25,10 @@ const TripsPage = async () => {
     }
     return (
         <div>
-            <TripsClient />
+            <TripsClient
+                reservations={reservations}
+                currentUser={currentUser}
+            />
         </div>
     )
 }
