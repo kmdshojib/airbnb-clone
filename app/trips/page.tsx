@@ -13,9 +13,8 @@ const TripsPage = async () => {
             subTitle='Please log in!'
         />)
     }
-    const reservations = await getReservation({
-        userId: currentUser.id
-    })
+    const reservations = await getReservation({ userId: currentUser.id });
+
 
     if (reservations.length === 0) {
         return (<EmptyState

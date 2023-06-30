@@ -1,7 +1,7 @@
 "use client"
 
 import useCountries from "@/app/hooks/useCountries";
-import { SafeListing, SafeUser,SafeReservation } from "@/app/types";
+import { SafeListing, SafeUser, SafeReservation } from "@/app/types";
 import { format } from "date-fns";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -14,7 +14,7 @@ interface ListingCardProps {
     currentUser?: SafeUser | null;
     data: SafeListing;
     reservation?: SafeReservation;
-    onAction: (id: string) => void;
+    onAction?: (id: string) => void;
     disabled?: boolean;
     actionId?: string;
     actionLabel?: string;
@@ -34,15 +34,16 @@ const ListingCard: React.FC<ListingCardProps> = ({
     const { getByValues } = useCountries()
     const location = getByValues(data.loactionValue)
 
-    const handleCancle = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
-        e.stopPropagation();
+    const handleCancle = useCallback(
+        (e: React.MouseEvent<HTMLButtonElement>) => {
+            e.stopPropagation();
 
-        if (disabled) {
-            return;
-        }
-        onAction?.(actionId)
+            if (disabled) {
+                return;
+            }
 
-    }, [actionId, disabled, onAction])
+            onAction?.(actionId)
+        }, [disabled, onAction, actionId]);
 
     const price = useMemo(() => {
         if (reservation) {
@@ -101,7 +102,8 @@ const ListingCard: React.FC<ListingCardProps> = ({
                         onClick={handleCancle}
                         disabled={disabled}
                         small
-                        label={actionLabel} />
+                        label={actionLabel}
+                    />
                 )}
             </div>
         </div>

@@ -35,7 +35,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
 
     const loginModal = useLoginModal();
     const router = useRouter();
-    
+
     const disableDates = useMemo(() => {
         let dates: Date[] = [];
 
@@ -55,7 +55,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
     const [dateRange, setDateRange] = useState<Range>(initialDateRange);
 
     const onCreateReservation = useCallback(() => {
-        
+
         if (!currentUser) {
             return loginModal.onOpen()
         }
@@ -71,9 +71,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
             .then(() => {
                 toast.success("Listing reserved")
                 setDateRange(initialDateRange)
-                // redirect to trips
-
-                router.refresh()
+                router.push("/trips")
             })
             .catch((error) => {
                 toast.error(`something went wrong ${error.message}`)

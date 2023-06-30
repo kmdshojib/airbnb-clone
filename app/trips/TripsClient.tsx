@@ -10,8 +10,8 @@ import { toast } from "react-hot-toast";
 import ListingCard from "../components/Listings/ListingCard";
 
 interface TripsClientProps {
-    reservations: SafeReservation[];
-    currentUser?: SafeUser[] | null;
+    reservations: SafeReservation[],
+    currentUser?: SafeUser | null,
 }
 
 const TripsClient: React.FC<TripsClientProps> = ({
@@ -20,22 +20,24 @@ const TripsClient: React.FC<TripsClientProps> = ({
 }) => {
     const router = useRouter()
     const [deletingId, setDeletingId] = useState("");
+
     const onCancle = useCallback((id: string) => {
+
         setDeletingId(id)
+    
         axios.delete(`/api/reservations/${id}`)
             .then(() => {
                 toast.success("Reservations cancled successfully!");
                 router.refresh();
             })
             .catch(error => {
-                toast.error(error?.response?.data?.error);
+                toast.error(error.message);
             })
             .finally(() => {
                 setDeletingId("");
             })
     }, [router])
-    
-    console.log({reservations})
+  
     return (
         <Container>
             <Heading
@@ -44,11 +46,12 @@ const TripsClient: React.FC<TripsClientProps> = ({
             />
             <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8">
                 {
-                    reservations?.map((reservation:any) => (
+                    reservations?.map((reservation: any) => (
                         <ListingCard
                             key={reservation.id}
                             data={reservation.listing}
                             reservation={reservation}
+                            actionId={reservation.id}
                             onAction={onCancle}
                             disabled={deletingId === reservation.id}
                             actionLabel="Cancel Reservation!"
