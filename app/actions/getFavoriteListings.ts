@@ -18,7 +18,7 @@ const getFavouriteListings = async () => {
 
         const safeFavorites = favorites.map(favorite => ({
             ...favorite,
-            createdAt: favorite.createdAt.toISOString();
+            createdAt: favorite.createdAt.toISOString()
         }))
 
         return safeFavorites;
