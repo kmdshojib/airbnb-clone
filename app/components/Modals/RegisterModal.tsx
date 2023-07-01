@@ -33,7 +33,9 @@ const RegisterModal = () => {
         axios.post("/api/register", data)
             .then(() => {
                 registerModal.onClose()
-            }).catch((err) => {
+                loginModal.onOpen()
+            })
+            .catch((err) => {
                 toast.error(err.message)
             })
             .finally(() => {
@@ -68,7 +70,7 @@ const RegisterModal = () => {
             </div>
         </div>
     )
-    
+
     const bodyContent = (
         <div className="flex flex-col gap-4">
             <Heading

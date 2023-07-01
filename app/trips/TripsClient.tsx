@@ -21,10 +21,10 @@ const TripsClient: React.FC<TripsClientProps> = ({
     const router = useRouter()
     const [deletingId, setDeletingId] = useState("");
 
-    const onCancle = useCallback((id: string) => {
+    const onCancel = useCallback((id: string) => {
 
         setDeletingId(id)
-    
+
         axios.delete(`/api/reservations/${id}`)
             .then(() => {
                 toast.success("Reservations cancled successfully!");
@@ -37,7 +37,7 @@ const TripsClient: React.FC<TripsClientProps> = ({
                 setDeletingId("");
             })
     }, [router])
-  
+
     return (
         <Container>
             <Heading
@@ -52,7 +52,7 @@ const TripsClient: React.FC<TripsClientProps> = ({
                             data={reservation.listing}
                             reservation={reservation}
                             actionId={reservation.id}
-                            onAction={onCancle}
+                            onAction={onCancel}
                             disabled={deletingId === reservation.id}
                             actionLabel="Cancel Reservation!"
                             currentUser={currentUser}

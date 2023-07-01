@@ -26,10 +26,6 @@ enum STEPS {
     PRICE = 5,
 }
 
-// interface RentModalProps {
-
-// }
-
 const RentModal = () => {
     const rentModal = useRentModal();
     const router = useRouter()

@@ -5,8 +5,8 @@ import getReservation from '../actions/getReservation';
 import TripsClient from './TripsClient';
 
 const TripsPage = async () => {
-    const currentUser = getCurrentUser();
-
+    const currentUser = await getCurrentUser();
+    
     if (!currentUser) {
         return (<EmptyState
             title='Unauthorized'
@@ -14,7 +14,6 @@ const TripsPage = async () => {
         />)
     }
     const reservations = await getReservation({ userId: currentUser.id });
-
 
     if (reservations.length === 0) {
         return (<EmptyState

@@ -7,8 +7,8 @@ interface Iparams {
 }
 
 export const DELETE = async (
-    request: Request, 
-  { params }: { params: Iparams }
+    request: Request,
+    { params }: { params: Iparams }
 ) => {
     const currentUser = await getCurrentUser();
     if (!currentUser) {
@@ -16,7 +16,7 @@ export const DELETE = async (
     }
 
     const { reservationId } = params;
-    console.log({reservationId})
+    
     if (!reservationId || typeof reservationId !== "string") {
         throw new Error("Invalid Id")
     }
@@ -26,7 +26,7 @@ export const DELETE = async (
             id: reservationId,
             OR: [
                 { userId: currentUser.id },
-                { listing: { userId: currentUser.id } },
+                { listing: { userId: currentUser.id } }
             ]
         }
     });

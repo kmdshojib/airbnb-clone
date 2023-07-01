@@ -1,18 +1,65 @@
-import React from 'react'
+"use client"
+import React, { useCallback, useState } from 'react'
 import { SafeReservation, SafeUser } from '../types'
+import Container from '../components/Container';
+import Heading from '../components/Heading';
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
+import { toast } from 'react-hot-toast';
+import ListingCard from '../components/Listings/ListingCard';
 
-interface ReservationClientProps{
-    reservations: SafeReservation;
+interface ReservationClientProps {
+    reservations: SafeReservation[];
     currentUser: SafeUser | null;
 }
 
-const ReservationClient:React.FC<ReservationClientProps> = ({
+const ReservationClient: React.FC<ReservationClientProps> = ({
     reservations,
     currentUser
 }) => {
-  return (
-    <div>ReservationClient</div>
-  )
+    const router = useRouter();
+    const [deletingId, setDeletingId] = useState("");
+
+    const onCancel = useCallback((id: string) => {
+        setDeletingId(id)
+        axios.delete(`/api/reservations/${id}`)
+            .then(() => {
+                toast.success("Reservation Cancelled!");
+                router.refresh();
+            })
+            .catch((error: any) => {
+                toast.error("Something went wrong");
+                console.log(error.message);
+            })
+            .finally(() => {
+                setDeletingId("")
+            })
+    }, [router])
+
+    return (
+        <Container>
+            <Heading
+                title="Reservations"
+                subTitle="Bookings on your Property!"
+            />
+            <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8">
+                {
+                    reservations?.map((reservation: any) => (
+                        <ListingCard
+                            key={reservation.id}
+                            data={reservation.listing}
+                            reservation={reservation}
+                            actionId={reservation.id}
+                            onAction={onCancel}
+                            disabled={deletingId === reservation.id}
+                            actionLabel="Cancel Guest Reservation!"
+                            currentUser={currentUser}
+                        />
+                    ))
+                }
+            </div>
+        </Container>
+    )
 }
 
 export default ReservationClient
