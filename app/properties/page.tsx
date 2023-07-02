@@ -6,7 +6,7 @@ import getListings from '../actions/getListings';
 
 const TripsPage = async () => {
     const currentUser = await getCurrentUser();
-    
+
     if (!currentUser) {
         return (<EmptyState
             title='Unauthorized'

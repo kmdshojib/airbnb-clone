@@ -3,6 +3,7 @@ import getCurrentUser from './actions/getCurrentUser'
 import LoginModal from './components/Modals/LoginModal'
 import RegisterModal from './components/Modals/RegisterModal'
 import RentModal from './components/Modals/RentModal'
+import SearchModal from './components/Modals/SearchModal'
 import NavBar from './components/NavBar/NavBar'
 import './globals.css'
 import { Nunito } from 'next/font/google'
@@ -25,6 +26,7 @@ const RootLayout = async ({
       <body className={font.className}>
         <>
           <TosterProvider />
+          <SearchModal />
           <RentModal />
           <LoginModal />
           <RegisterModal />
