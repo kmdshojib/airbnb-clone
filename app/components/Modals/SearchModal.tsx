@@ -10,6 +10,7 @@ import queryString from 'query-string'
 import { formatISO, set } from 'date-fns'
 import Heading from '../Heading'
 import Calendar from '../inputs/Calendar'
+import Counter from '../inputs/Counter'
 
 
 enum STEPS {
@@ -117,10 +118,38 @@ const SearchModal = () => {
                     title='When do you plan to go?'
                     subTitle='Make sure everyone id free!'
                 />
-                 <Calendar
-                value={dateRange}
-                onChange={(value) => setDateRange(value.selection)}
-            />
+                <Calendar
+                    value={dateRange}
+                    onChange={(value) => setDateRange(value.selection)}
+                />
+            </div>
+        )
+    }
+    if (step === STEPS.INFO) {
+        bodyContent = (
+            <div className='flex flex-col gap-8'>
+                <Heading
+                    title='More Infornation'
+                    subTitle='Find Your perfect place!'
+                />
+                <Counter
+                    title="Guests"
+                    subtitle='How many guests are comming?'
+                    value={guestCount}
+                    onChange={value => setGuestCount(value)}
+                />
+                <Counter
+                    title="Room"
+                    subtitle='How many room do you need?'
+                    value={roomCount}
+                    onChange={value => setRoomCount(value)}
+                />
+                <Counter
+                    title="Bathroom"
+                    subtitle='How many bathroom do you need?'
+                    value={bathroomCount}
+                    onChange={value => setbathroomCount(value)}
+                />
             </div>
         )
     }
@@ -131,6 +160,8 @@ const SearchModal = () => {
             onSubmit={onSubmit}
             title='Filters'
             actionLabel={actionLabel}
+            secondaryAction={step === STEPS.LOCATION ? undefined : onBack}
+            seconderyActionLabel={seconderyActionLabel}
             body={bodyContent}
         />
     )
