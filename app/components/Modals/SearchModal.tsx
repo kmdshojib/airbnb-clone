@@ -5,9 +5,12 @@ import Modal from './Modal'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Range } from 'react-date-range'
 import dynamic from 'next/dynamic'
-import { CountrySelectValue } from '../inputs/CountrySelect'
+import CountrySelect, { CountrySelectValue } from '../inputs/CountrySelect'
 import queryString from 'query-string'
-import { formatISO } from 'date-fns'
+import { formatISO, set } from 'date-fns'
+import Heading from '../Heading'
+import Calendar from '../inputs/Calendar'
+
 
 enum STEPS {
     LOCATION = 0,
@@ -76,15 +79,59 @@ const SearchModal = () => {
         router.push(url);
     }, [router, step, roomCount, bathroomCount, guestCount, dateRange, onNext, onClose, params, location])
 
+    const actionLabel = useMemo(() => {
+        if (step === STEPS.INFO) {
+            return "Search";
+        }
 
+        return "Next"
+    }, [step])
 
+    const seconderyActionLabel = useMemo(() => {
+        if (step === STEPS.LOCATION) {
+            return undefined;
+        }
+        return "Previous";
+    }, [step])
+
+    let bodyContent = (
+        <div className='flex flex-col gap-8'>
+            <Heading
+                title='Where do you want to go?'
+                subTitle='Find the perfect location!'
+            />
+
+            <CountrySelect
+                value={location}
+                onChange={value => setLocation(value as CountrySelectValue)}
+            />
+            <hr />
+            <Map center={location?.latlng} />
+        </div>
+    )
+
+    if (step === STEPS.DATE) {
+        bodyContent = (
+            <div className='flex flex-col gap-8'>
+                <Heading
+                    title='When do you plan to go?'
+                    subTitle='Make sure everyone id free!'
+                />
+                 <Calendar
+                value={dateRange}
+                onChange={(value) => setDateRange(value.selection)}
+            />
+            </div>
+        )
+    }
     return (
         <Modal
             isOpen={isOpen}
             onClose={onClose}
-            onSubmit={onOpen}
+            onSubmit={onSubmit}
             title='Filters'
-            actionLabel='Search'
+            actionLabel={actionLabel}
+            body={bodyContent}
         />
     )
 }
