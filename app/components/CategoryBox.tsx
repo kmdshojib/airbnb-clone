@@ -19,7 +19,7 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
 
     const handleClick = useCallback(() => {
         let currentQuery = {}
-        
+
         if (params) {
             currentQuery = queryString.parse(params.toString())
         }
@@ -27,9 +27,11 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
             ...currentQuery,
             category: label
         }
+        
         if (params?.get("catetgory") === label) {
             delete updatedQuery.catetgory
         }
+
         const url = queryString.stringifyUrl({
             url: "/",
             query: updatedQuery
