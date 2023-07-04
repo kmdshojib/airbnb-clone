@@ -19,12 +19,13 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
 
     const handleClick = useCallback(() => {
         let currentQuery = {}
+        
         if (params) {
             currentQuery = queryString.parse(params.toString())
         }
         const updatedQuery: any = {
             ...currentQuery,
-            catetgory: label
+            category: label
         }
         if (params?.get("catetgory") === label) {
             delete updatedQuery.catetgory

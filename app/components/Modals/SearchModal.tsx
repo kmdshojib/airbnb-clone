@@ -59,7 +59,7 @@ const SearchModal = () => {
 
         const updatedQuery: any = {
             ...currentQuery,
-            locationValue: location?.value,
+            loactionValue: location?.value,
             guestCount,
             roomCount,
             bathroomCount
@@ -153,6 +153,7 @@ const SearchModal = () => {
             </div>
         )
     }
+
     return (
         <Modal
             isOpen={isOpen}
