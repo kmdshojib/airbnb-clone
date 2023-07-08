@@ -3,8 +3,9 @@ import getCurrentUser from '../actions/getCurrentUser'
 import EmptyState from '../components/EmptyState';
 import PropertiesClient from './PropertiesClient';
 import getListings from '../actions/getListings';
+import ClientOnly from '../components/ClientOnly';
 
-const TripsPage = async () => {
+const PropertiesPage = async () => {
     const currentUser = await getCurrentUser();
 
     if (!currentUser) {
@@ -15,11 +16,13 @@ const TripsPage = async () => {
     }
     const listings = await getListings({ userId: currentUser.id });
 
-    if (listings.length === 0) {
-        return (<EmptyState
-            title='No Properties found!'
-            subTitle="Looks like You have no properties!"
-        />)
+    if (listings?.length === 0) {
+        return (<ClientOnly>
+            <EmptyState
+                title='No Properties found!'
+                subTitle="Looks like You have no properties!"
+            />
+        </ClientOnly>)
     }
     return (
         <div>
@@ -31,4 +34,4 @@ const TripsPage = async () => {
     )
 }
 
-export default TripsPage;
+export default PropertiesPage;

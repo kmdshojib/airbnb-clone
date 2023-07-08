@@ -20,7 +20,6 @@ const getListings = async (params: IListingsParams) => {
         if (userId) {
             query.userId = userId;
         }
-
         if (category) {
             query.category = category;
         }
@@ -76,9 +75,10 @@ const getListings = async (params: IListingsParams) => {
             ...listing,
             createdAt: listing.createdAt.toISOString()
         }))
-        return safeListings
-    } catch (errors: any) {
-        throw new Error(errors);
+        return safeListings;
+
+    } catch (error: any) {
+        console.log({ error });
     }
 }
 
