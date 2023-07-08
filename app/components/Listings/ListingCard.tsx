@@ -11,7 +11,7 @@ import Button from "../Button";
 
 
 interface ListingCardProps {
-    currentUser?: SafeUser | null;
+    currentUser: SafeUser | null;
     data: SafeListing;
     reservation?: SafeReservation;
     onAction?: (id: string) => void;

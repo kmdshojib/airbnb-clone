@@ -21,10 +21,9 @@ export type SafeReservation = Omit<
 
 export type SafeUser = Omit<
     User,
-    "createdAt" | "updatedAt" | "emailVerified" | "id"
+    "createdAt" | "updatedAt" | "emailVerified"
 > & {
-    id:string;
     createdAt: string;
     updatedAt: string;
-    emailVerified: string | null
-}
+    emailVerified: string | null;
+};

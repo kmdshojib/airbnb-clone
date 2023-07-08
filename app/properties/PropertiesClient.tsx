@@ -11,7 +11,7 @@ import ListingCard from "../components/Listings/ListingCard";
 
 interface TripsClientProps {
     listings: SafeListing[],
-    currentUser?: SafeUser | null,
+    currentUser: SafeUser | null,
 }
 
 const PropertiesClient: React.FC<TripsClientProps> = ({
@@ -63,4 +63,4 @@ const PropertiesClient: React.FC<TripsClientProps> = ({
     )
 }
 
-export default PropertiesClient
+export default PropertiesClient;

@@ -11,7 +11,7 @@ import ListingCard from "../components/Listings/ListingCard";
 
 interface TripsClientProps {
     reservations: SafeReservation[],
-    currentUser?: SafeUser | null,
+    currentUser: SafeUser | null,
 }
 
 const TripsClient: React.FC<TripsClientProps> = ({
