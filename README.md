@@ -9,7 +9,7 @@ This a Full Stack Airbnb Clone is designed with scalability and performance in m
 
 *Add To Favorites system 
 
-*Advanced search algorithm by category, date range, map location, number of guests, rooms and bathrooms
+*Guest reservation cancellation
 
-*Advanced search algorithm by category, date range, map location, number of guests, rooms and bathrooms
+*Advanced search algorithm by category, date range, map location, number of guests, rooms, and bathrooms
 
